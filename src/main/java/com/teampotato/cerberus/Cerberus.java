@@ -1,4 +1,4 @@
-package com.teampotato.restarks;
+package com.teampotato.cerberus;
 
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -21,26 +21,26 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-import static com.teampotato.restarks.ReStarksConfig.*;
+import static com.teampotato.cerberus.CerberusConfig.*;
 
-@Mod(ReStarks.ID)
+@Mod(Cerberus.ID)
 @Mod.EventBusSubscriber
-public class ReStarks {
-    public static final String ID = "restarks";
-    public static final Logger LOGGER = LogManager.getLogger("ReStarks");
+public class Cerberus {
+    public static final String ID = "cerberus";
+    public static final Logger LOGGER = LogManager.getLogger("cerberus");
     public static final DeferredRegister<Enchantment> ENCHANTMENT_DEFERRED_REGISTER = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, ID);
 
     @SuppressWarnings("unused")
-    public static final RegistryObject<Enchantment> RESTARKS = ENCHANTMENT_DEFERRED_REGISTER.register(ID, com.teampotato.restarks.ReStarksEnchantment::new);
+    public static final RegistryObject<Enchantment> RESTARKS = ENCHANTMENT_DEFERRED_REGISTER.register(ID, com.teampotato.cerberus.CerberusEnchantment::new);
 
-    private static boolean isReStarksPresent(Player player) {
+    private static boolean isCerberusPresent(Player player) {
         return player.getItemBySlot(EquipmentSlot.HEAD).getEnchantmentTags().toString().contains(ID);
     }
 
     @SubscribeEvent
     public static void onPlayerAttack(LivingHurtEvent event) {
         if (event.getSource().getDirectEntity() instanceof Player player) {
-            if (!isReStarksPresent(player)) return;
+            if (!isCerberusPresent(player)) return;
             AABB playerAABB = player.getBoundingBox();
             List<TamableAnimal> pets = player.level().getEntitiesOfClass(TamableAnimal.class,
                     new AABB(
@@ -75,7 +75,7 @@ public class ReStarks {
                 if (
                         health >= maxHealth * playerHealthPercentage.get() &&
                         health > amount &&
-                        isReStarksPresent(player)
+                        isCerberusPresent(player)
                 ) {
                     player.hurt(source, (float) amount);
                     event.setCanceled(true);
@@ -84,7 +84,7 @@ public class ReStarks {
         }
     }
 
-    public ReStarks() {
+    public Cerberus() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, configSpec);
         ENCHANTMENT_DEFERRED_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
         MinecraftForge.EVENT_BUS.register(this);

@@ -1,9 +1,8 @@
-package com.teampotato.restarks;
+package com.teampotato.cerberus;
 
 import com.google.common.collect.Lists;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
@@ -11,8 +10,8 @@ import net.minecraftforge.fml.event.config.ModConfigEvent;
 import java.lang.reflect.Field;
 import java.util.List;
 
-@Mod.EventBusSubscriber(modid = ReStarks.ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class ReStarksConfig {
+@Mod.EventBusSubscriber(modid = Cerberus.ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+public class CerberusConfig {
     public static ForgeConfigSpec configSpec;
     public static ForgeConfigSpec.BooleanValue isTradeable, isCurse, isTreasureOnly, isDiscoverable, isAllowedOnBooks, isAverageHealAmounts;
     public static ForgeConfigSpec.ConfigValue<String> rarity;
@@ -21,7 +20,7 @@ public class ReStarksConfig {
 
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
-        builder.push("ReStarks");
+        builder.push("Cerberus");
         builder.comment(
                 "The enchantment makes your attack to creatures heal your pets, but the pets should be close to you",
                 "Here are the expanded coordinates data of the judgment, centered on your location"
@@ -85,11 +84,11 @@ public class ReStarksConfig {
 
         // 更新附魔实例的品质字段
         try {
-            Field rarityField = ReStarksEnchantment.class.getDeclaredField("rarity");
+            Field rarityField = CerberusEnchantment.class.getDeclaredField("rarity");
             rarityField.setAccessible(true);
             rarityField.set(null, Rarity);
         } catch (NoSuchFieldException | IllegalAccessException e) {
-            ReStarks.LOGGER.error("Can't switch the rarity");
+            Cerberus.LOGGER.error("Can't switch the rarity");
         }
     }
 }

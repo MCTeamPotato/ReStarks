@@ -1,16 +1,16 @@
-package com.teampotato.restarks;
+package com.teampotato.cerberus;
 
 
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 
-import static com.teampotato.restarks.ReStarksConfig.*;
+import static com.teampotato.cerberus.CerberusConfig.*;
 
-public class ReStarksEnchantment extends Enchantment {
+public class CerberusEnchantment extends Enchantment {
     public static Enchantment.Rarity rarity = Enchantment.Rarity.UNCOMMON;
 
-    public ReStarksEnchantment() {
+    public CerberusEnchantment() {
         super(rarity, EnchantmentCategory.ARMOR_HEAD, new EquipmentSlot[]{EquipmentSlot.HEAD});
     }
 
