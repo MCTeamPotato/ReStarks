@@ -15,7 +15,7 @@ import java.util.List;
 public class ReStarksConfig {
     public static ForgeConfigSpec configSpec;
     public static ForgeConfigSpec.BooleanValue isTradeable, isCurse, isTreasureOnly, isDiscoverable, isAllowedOnBooks, isAverageHealAmounts;
-    public static final ForgeConfigSpec.ConfigValue<String> rarity;
+    public static ForgeConfigSpec.ConfigValue<String> rarity;
     public static ForgeConfigSpec.DoubleValue playerAroundX, playerAroundY, playerAroundZ, playerHealthPercentage;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> invalidDamageSourceTypes;
 
@@ -67,16 +67,9 @@ public class ReStarksConfig {
         configSpec = builder.build();
     }
 
-    @SubscribeEvent(priority = EventPriority.HIGH)
+    @SubscribeEvent
     public static void onConfigLoad(ModConfigEvent.Loading event) {
        if (event.getConfig().getSpec() == configSpec) {
-            updateEnchantmentRarity();
-        }
-    }
-
-    @SubscribeEvent(priority = EventPriority.HIGH)
-    public static void onConfigReload(ModConfigEvent.Reloading event) {
-        if (event.getConfig().getSpec() == configSpec) {
             updateEnchantmentRarity();
         }
     }
